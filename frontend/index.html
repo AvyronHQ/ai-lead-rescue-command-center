@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="AI Lead Rescue & Quote Follow-Up Command Center demo dashboard" />
+  <title>Lead Rescue Command Center</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">LR</div>
+        <div><strong>Lead Rescue</strong><span>Command Center</span></div>
+      </div>
+      <nav class="nav">
+        <button class="nav-item active" data-view="dashboard"><span>◫</span> Dashboard</button>
+        <button class="nav-item" data-view="leads"><span>◎</span> Leads</button>
+        <button class="nav-item" data-view="followups"><span>↻</span> Follow-ups <b id="followupNavCount">0</b></button>
+        <a class="nav-item" href="/intake" target="_blank"><span>＋</span> Public intake</a>
+      </nav>
+      <div class="sidebar-card">
+        <div class="mini-label">Automation</div>
+        <div class="status-row"><span class="pulse"></span><strong>Follow-up engine</strong></div>
+        <p>Checks overdue quotes and prepares safe, reviewable AI drafts.</p>
+      </div>
+      <div class="sidebar-footer">Portfolio demo · v1.0</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">SALES OPERATIONS</div>
+          <h1 id="pageTitle">Lead Rescue Dashboard</h1>
+        </div>
+        <div class="top-actions">
+          <div id="aiModeBadge" class="mode-badge">AI · checking…</div>
+          <button class="btn secondary" id="runAutomationBtn">Run automation</button>
+          <button class="btn primary" id="newLeadBtn">+ New lead</button>
+        </div>
+      </header>
+
+      <section id="dashboardView" class="view active">
+        <div class="hero-panel">
+          <div>
+            <div class="eyebrow accent">TODAY'S PRIORITY</div>
+            <h2>Rescue the leads most likely to go cold.</h2>
+            <p>One place to capture inquiries, track quotes, spot overdue follow-ups, and prepare client-ready responses.</p>
+          </div>
+          <button class="btn ghost" data-view-target="followups">Review follow-ups →</button>
+        </div>
+
+        <div class="metrics-grid">
+          <article class="metric-card"><span>Total leads</span><strong id="metricTotal">0</strong><small>all captured inquiries</small></article>
+          <article class="metric-card"><span>Active quotes</span><strong id="metricQuotes">0</strong><small>waiting for a decision</small></article>
+          <article class="metric-card danger"><span>Overdue follow-ups</span><strong id="metricOverdue">0</strong><small>need attention now</small></article>
+          <article class="metric-card success"><span>Won value</span><strong id="metricWon">$0</strong><small>demo pipeline revenue</small></article>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="panel pipeline-panel">
+            <div class="panel-head"><div><span class="eyebrow">PIPELINE</span><h3>Lead flow</h3></div><button class="link-btn" data-view-target="leads">View all</button></div>
+            <div id="pipelineBars" class="pipeline-bars"></div>
+          </article>
+          <article class="panel activity-panel">
+            <div class="panel-head"><div><span class="eyebrow">LIVE ACTIVITY</span><h3>Recent updates</h3></div></div>
+            <div id="activityList" class="activity-list"></div>
+          </article>
+        </div>
+
+        <article class="panel">
+          <div class="panel-head"><div><span class="eyebrow">AT RISK</span><h3>Quotes that need follow-up</h3></div><button class="link-btn" data-view-target="followups">Open queue</button></div>
+          <div id="riskTable" class="table-wrap"></div>
+        </article>
+      </section>
+
+      <section id="leadsView" class="view">
+        <div class="view-toolbar">
+          <div class="search-wrap"><span>⌕</span><input id="leadSearch" placeholder="Search name, company, service…" /></div>
+          <select id="statusFilter" class="select"><option value="">All statuses</option></select>
+        </div>
+        <article class="panel"><div id="leadsTable" class="table-wrap"></div></article>
+      </section>
+
+      <section id="followupsView" class="view">
+        <div class="followup-intro panel">
+          <div><span class="eyebrow accent">HUMAN-IN-THE-LOOP</span><h3>AI prepares the draft. You approve the message.</h3><p>The automation creates reminders only when a quote is overdue. It never sends customer messages automatically.</p></div>
+          <button class="btn secondary" id="runAutomationBtn2">Check now</button>
+        </div>
+        <div id="reminderGrid" class="reminder-grid"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <dialog id="newLeadDialog" class="modal">
+    <form id="newLeadForm" method="dialog">
+      <div class="modal-head"><div><span class="eyebrow">NEW INQUIRY</span><h3>Add lead</h3></div><button type="button" class="icon-btn" data-close="newLeadDialog">×</button></div>
+      <div class="form-grid">
+        <label>Name<input name="name" required /></label>
+        <label>Email<input name="email" type="email" required /></label>
+        <label>Company<input name="company" /></label>
+        <label>Phone<input name="phone" /></label>
+        <label>Source<select name="source"><option>Website</option><option>Upwork</option><option>LinkedIn</option><option>Referral</option><option>Google Ads</option><option>Facebook</option></select></label>
+        <label>Budget (USD)<input name="budget" type="number" min="0" step="50" /></label>
+        <label class="span-2">Service<input name="service" placeholder="e.g. Quote follow-up automation" /></label>
+        <label class="span-2">Message<textarea name="message" rows="4" placeholder="What problem is the customer trying to solve?"></textarea></label>
+      </div>
+      <div class="modal-actions"><button type="button" class="btn secondary" data-close="newLeadDialog">Cancel</button><button class="btn primary" type="submit">Save lead</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="leadDialog" class="modal wide">
+    <div id="leadDetail"></div>
+  </dialog>
+
+  <script src="/app.js"></script>
+</body>
+</html>
