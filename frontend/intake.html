@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Request a Quote · Lead Rescue Demo</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body class="intake-body">
+  <main class="intake-shell">
+    <section class="intake-copy">
+      <div class="demo-pill">LIVE DEMO · CLIENT INTAKE</div>
+      <h1>Tell us what you need.<br><span>We’ll make the next step clear.</span></h1>
+      <p>This public form feeds directly into the Lead Rescue dashboard. It demonstrates how a real service business can capture better-qualified inquiries without losing context.</p>
+      <div class="promise-list">
+        <div><b>01</b><span><strong>One clean intake</strong><small>Contact details, service need and budget in one place.</small></span></div>
+        <div><b>02</b><span><strong>Fast qualification</strong><small>AI can summarize the request for the sales team.</small></span></div>
+        <div><b>03</b><span><strong>No lost follow-ups</strong><small>Quotes automatically enter the reminder workflow.</small></span></div>
+      </div>
+      <a href="/" class="back-link">← Open admin dashboard</a>
+    </section>
+
+    <section class="intake-card">
+      <div id="intakeFormWrap">
+        <span class="eyebrow accent">REQUEST A QUOTE</span>
+        <h2>Start your project</h2>
+        <p>Demo data only. Use a fake email if you are testing.</p>
+        <form id="intakeForm" class="intake-form">
+          <label>Your name<input name="name" required placeholder="Alex Morgan" /></label>
+          <label>Work email<input name="email" type="email" required placeholder="alex@company.example" /></label>
+          <label>Company<input name="company" placeholder="Your business" /></label>
+          <label>What do you need?<select name="service"><option>Lead follow-up automation</option><option>Quote workflow</option><option>AI email assistant</option><option>Client intake dashboard</option><option>Website / web app</option><option>Other</option></select></label>
+          <label>Approx. budget<input name="budget" type="number" min="0" step="50" placeholder="1500" /></label>
+          <label>Tell us about the problem<textarea name="message" rows="5" required placeholder="What is happening today, and what would a better workflow look like?"></textarea></label>
+          <button class="btn primary full" type="submit">Send inquiry →</button>
+        </form>
+      </div>
+      <div id="intakeSuccess" class="intake-success hidden">
+        <div class="success-mark">✓</div>
+        <h2>Inquiry captured.</h2>
+        <p>The new lead is now visible in the dashboard. In a real deployment, your team could review it immediately and start qualification.</p>
+        <a class="btn primary" href="/">View dashboard</a>
+        <button class="link-btn" id="submitAnother">Submit another</button>
+      </div>
+    </section>
+  </main>
+  <script src="/intake.js"></script>
+</body>
+</html>
